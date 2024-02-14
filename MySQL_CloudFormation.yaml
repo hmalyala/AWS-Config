@@ -1,0 +1,14 @@
+Resources:
+  MyDBInstance:
+    Type: AWS::RDS::DBInstance
+    Properties:
+      AllocatedStorage: 20
+      DBInstanceClass: db.t2.micro
+      Engine: mysql
+      EngineVersion: '8.0'
+      PubliclyAccessible: True
+      MasterUsername: admin
+      MasterUserPassword: password
+      DBName: practice
+      VPCSecurityGroups:
+        - sg-0b77fc89693211f22  # Replace with the ID of your existing security group
