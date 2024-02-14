@@ -1,0 +1,25 @@
+Resources:
+  MyDBSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Security group for RDS DB instance
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 3306
+          ToPort: 3306
+          CidrIp: 0.0.0.0/0
+
+  MyDBInstance:
+    Type: AWS::RDS::DBInstance
+    Properties:
+      AllocatedStorage: 20
+      DBInstanceClass: db.t2.micro
+      Engine: mysql
+      EngineVersion: '8.0'
+      PubliclyAccessible: True
+      MasterUsername: admin
+      MasterUserPassword: password
+      DBName: practice
+      VPCSecurityGroups:
+        - !GetAtt MyDBSecurityGroup.GroupId  # Reference the security group ID
+      BackupRetentionPeriod: 0  # Disable automated backups
